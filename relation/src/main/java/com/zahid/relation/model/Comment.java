@@ -1,8 +1,6 @@
 package com.zahid.relation.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 
@@ -15,10 +13,8 @@ public class Comment {
     private Integer id;
     private String commentText;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "post_id", nullable = false)
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Post post;
 
     public Comment() {

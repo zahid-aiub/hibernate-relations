@@ -1,8 +1,7 @@
 package com.zahid.relation.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,13 +16,13 @@ public class Post {
     private Integer id;
     private String text;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private User user;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    @JoinColumn(name = "post_id")
     private List<Comment> comments = new ArrayList<>();
 
     public Post() {

@@ -1,6 +1,6 @@
 package com.zahid.relation.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,8 +17,10 @@ public class User {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    @JoinColumn(name = "user_id")
+    private List<Post> posts = new ArrayList<>();
 
     public User() {
 

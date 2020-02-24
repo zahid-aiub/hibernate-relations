@@ -1,6 +1,5 @@
 package com.zahid.relation.aop;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -28,11 +27,11 @@ public class LoggerAdvice {
 
         String methodName = joinPoint.getSignature().getName();
         String className = joinPoint.getTarget().getClass().toString();
-        Object [] args = joinPoint.getArgs();
-        log.info("Method Invoked " + className + " " + methodName+ "()" + "Arguments: " + mapper.writeValueAsString(args));
+        Object[] args = joinPoint.getArgs();
+        log.info("Method Invoked " + className + " " + methodName + "()" + "Arguments: " + mapper.writeValueAsString(args));
 
         Object object = joinPoint.proceed();
-        log.info("Method Invoked " + className + " " + methodName+ "()" + "Response: " + mapper.writeValueAsString(object));
+        log.info("Method Invoked " + className + " " + methodName + "()" + "Response: " + mapper.writeValueAsString(object));
 
         return object;
 
