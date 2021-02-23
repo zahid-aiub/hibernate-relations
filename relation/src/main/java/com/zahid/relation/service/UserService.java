@@ -1,5 +1,8 @@
 package com.zahid.relation.service;
 
+import com.zahid.relation.dto.classBased.UserDetailsDto;
+import com.zahid.relation.dto.classBased.UserDto;
+import com.zahid.relation.dto.interfaceBased.UserInDto;
 import com.zahid.relation.exception.ResourceNotFoundException;
 import com.zahid.relation.model.User;
 import com.zahid.relation.repository.UserRepository;
@@ -42,6 +45,22 @@ public class UserService {
             userRepository.delete(user);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException("UserId " + userId + " not found"));
+    }
+
+    public UserDto getUserByName(String name) {
+        return userRepository.findByName(name);
+    }
+
+    public UserInDto getUserByPassword(String pass) {
+        return userRepository.findByPassword(pass);
+    }
+
+    public UserDto getNameAndEmailByEmail(String email) {
+        return userRepository.findByEmail(email, UserDto.class);
+    }
+
+    public UserDetailsDto getDetailsByEmail(String email) {
+        return userRepository.findByEmail(email, UserDetailsDto.class);
     }
 
 }
